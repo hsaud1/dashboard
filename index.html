@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DataBoard Pro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- Animated background orbs -->
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">◈</div>
+    <span>DataBoard</span>
+  </div>
+  <nav class="sidebar-nav">
+    <a class="nav-item active" data-page="dashboard">
+      <span class="nav-icon">⬡</span><span>Dashboard</span>
+    </a>
+    <a class="nav-item" data-page="analytics">
+      <span class="nav-icon">◎</span><span>Analytics</span>
+    </a>
+    <a class="nav-item" data-page="transactions">
+      <span class="nav-icon">⟁</span><span>Transactions</span>
+    </a>
+    <a class="nav-item" data-page="goals">
+      <span class="nav-icon">◉</span><span>Goals</span>
+    </a>
+  </nav>
+  <div class="sidebar-user">
+    <div class="avatar" id="user-avatar">JD</div>
+    <div class="user-info">
+      <div class="user-name" id="user-name-display">John Doe</div>
+      <div class="user-role">Admin</div>
+    </div>
+  </div>
+</aside>
+
+<!-- Main Content -->
+<main class="main" id="main">
+
+  <!-- Top Bar -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="menu-btn" id="menu-btn">☰</button>
+      <div class="page-title" id="page-title">Dashboard</div>
+    </div>
+    <div class="topbar-right">
+      <div class="search-wrap">
+        <input class="search-input" id="search-input" type="text" placeholder="Search transactions..."/>
+        <span class="search-icon">⌕</span>
+      </div>
+      <button class="btn btn-primary" id="add-btn">＋ Add Data</button>
+      <div class="notif-btn" id="notif-btn">
+        🔔
+        <span class="notif-badge" id="notif-badge">3</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Pages -->
+  <div class="pages">
+
+    <!-- ===== DASHBOARD PAGE ===== -->
+    <section class="page active" id="page-dashboard">
+
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card" data-color="emerald">
+          <div class="kpi-top">
+            <div class="kpi-icon">💰</div>
+            <div class="kpi-trend up" id="rev-trend">▲ 12.4%</div>
+          </div>
+          <div class="kpi-value" id="kpi-revenue">$84,250</div>
+          <div class="kpi-label">Total Revenue</div>
+          <div class="kpi-sparkline" id="spark-revenue"></div>
+        </div>
+        <div class="kpi-card" data-color="rose">
+          <div class="kpi-top">
+            <div class="kpi-icon">📤</div>
+            <div class="kpi-trend down" id="exp-trend">▼ 3.1%</div>
+          </div>
+          <div class="kpi-value" id="kpi-expenses">$31,800</div>
+          <div class="kpi-label">Expenses</div>
+          <div class="kpi-sparkline" id="spark-expenses"></div>
+        </div>
+        <div class="kpi-card" data-color="amber">
+          <div class="kpi-top">
+            <div class="kpi-icon">👥</div>
+            <div class="kpi-trend up">▲ 8.7%</div>
+          </div>
+          <div class="kpi-value" id="kpi-users">1,247</div>
+          <div class="kpi-label">New Users</div>
+          <div class="kpi-sparkline" id="spark-users"></div>
+        </div>
+        <div class="kpi-card" data-color="sky">
+          <div class="kpi-top">
+            <div class="kpi-icon">⚡</div>
+            <div class="kpi-trend up">▲ 5.2%</div>
+          </div>
+          <div class="kpi-value" id="kpi-sessions">582</div>
+          <div class="kpi-label">Active Sessions</div>
+          <div class="kpi-sparkline" id="spark-sessions"></div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="charts-row">
+        <!-- Bar Chart Card -->
+        <div class="card chart-card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Monthly Revenue</div>
+              <div class="card-sub" id="chart-year">2024</div>
+            </div>
+            <div class="card-actions">
+              <select class="select-sm" id="year-select">
+                <option>2024</option>
+                <option>2023</option>
+                <option>2022</option>
+              </select>
+              <button class="icon-btn" id="edit-chart-btn" title="Edit chart data">✎</button>
+            </div>
+          </div>
+          <canvas id="bar-canvas" height="180"></canvas>
+          <div class="chart-tooltip" id="chart-tooltip"></div>
+        </div>
+
+        <!-- Donut Card -->
+        <div class="card donut-card">
+          <div class="card-header">
+            <div class="card-title">Traffic Sources</div>
+            <button class="icon-btn" id="edit-donut-btn" title="Edit sources">✎</button>
+          </div>
+          <div class="donut-wrap">
+            <div class="donut-container">
+              <canvas id="donut-canvas" width="180" height="180"></canvas>
+              <div class="donut-center-label">
+                <div class="donut-total" id="donut-total">100%</div>
+                <div class="donut-sub">Traffic</div>
+              </div>
+            </div>
+            <div class="legend" id="donut-legend"></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===== ANALYTICS PAGE ===== -->
+    <section class="page" id="page-analytics">
+      <div class="card" style="padding:2rem;">
+        <div class="card-title" style="font-size:1.1rem;margin-bottom:1.5rem;">📊 Live Analytics</div>
+        <div class="analytics-grid">
+          <div class="stat-box">
+            <div class="stat-val" id="stat-bounce">42%</div>
+            <div class="stat-lbl">Bounce Rate</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val" id="stat-avg">3m 24s</div>
+            <div class="stat-lbl">Avg. Session</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val" id="stat-conv">6.8%</div>
+            <div class="stat-lbl">Conversion</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val" id="stat-pages">4.2</div>
+            <div class="stat-lbl">Pages/Session</div>
+          </div>
+        </div>
+        <div style="margin-top:2rem;text-align:center;color:var(--muted);font-size:0.85rem;">
+          Stats update every 5 seconds automatically.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TRANSACTIONS PAGE ===== -->
+    <section class="page" id="page-transactions">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">All Transactions</div>
+          <button class="btn btn-primary btn-sm" id="add-txn-btn">＋ New</button>
+        </div>
+        <table class="txn-table" id="txn-table">
+          <thead>
+            <tr>
+              <th>Item</th><th>Date</th><th>Amount</th><th>Status</th><th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="txn-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===== GOALS PAGE ===== -->
+    <section class="page" id="page-goals">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Q1 Goals</div>
+          <button class="btn btn-primary btn-sm" id="add-goal-btn">＋ Add Goal</button>
+        </div>
+        <div id="goals-list"></div>
+      </div>
+    </section>
+
+  </div><!-- /pages -->
+</main>
+
+<!-- ===== MODALS ===== -->
+
+<!-- Add Data Modal -->
+<div class="modal-overlay" id="modal-add">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add New Data</div>
+      <button class="modal-close" data-modal="modal-add">✕</button>
+    </div>
+    <div class="modal-tabs">
+      <button class="tab-btn active" data-tab="tab-kpi">KPI</button>
+      <button class="tab-btn" data-tab="tab-txn">Transaction</button>
+      <button class="tab-btn" data-tab="tab-goal">Goal</button>
+    </div>
+    <!-- KPI Tab -->
+    <div class="tab-content active" id="tab-kpi">
+      <label>Update KPI Value</label>
+      <select class="input" id="kpi-select">
+        <option value="revenue">Total Revenue ($)</option>
+        <option value="expenses">Expenses ($)</option>
+        <option value="users">New Users</option>
+        <option value="sessions">Active Sessions</option>
+      </select>
+      <label>New Value</label>
+      <input class="input" id="kpi-input" type="number" placeholder="e.g. 95000"/>
+      <button class="btn btn-primary full-btn" id="save-kpi-btn">Update KPI</button>
+    </div>
+    <!-- Transaction Tab -->
+    <div class="tab-content" id="tab-txn">
+      <label>Item Name</label>
+      <input class="input" id="txn-item" type="text" placeholder="e.g. Pro Plan"/>
+      <label>Amount ($)</label>
+      <input class="input" id="txn-amount" type="number" placeholder="e.g. 299"/>
+      <label>Status</label>
+      <select class="input" id="txn-status">
+        <option>Paid</option>
+        <option>Pending</option>
+        <option>Refunded</option>
+      </select>
+      <button class="btn btn-primary full-btn" id="save-txn-btn">Add Transaction</button>
+    </div>
+    <!-- Goal Tab -->
+    <div class="tab-content" id="tab-goal">
+      <label>Goal Name</label>
+      <input class="input" id="goal-name" type="text" placeholder="e.g. Reduce Churn"/>
+      <label>Progress (%)</label>
+      <input class="input" id="goal-progress" type="number" min="0" max="100" placeholder="0-100"/>
+      <label>Color</label>
+      <div class="color-picker" id="goal-color-picker">
+        <div class="color-dot selected" data-color="#4fffb0" style="background:#4fffb0"></div>
+        <div class="color-dot" data-color="#4fc3f7" style="background:#4fc3f7"></div>
+        <div class="color-dot" data-color="#ffd166" style="background:#ffd166"></div>
+        <div class="color-dot" data-color="#ff6b6b" style="background:#ff6b6b"></div>
+        <div class="color-dot" data-color="#c084fc" style="background:#c084fc"></div>
+      </div>
+      <button class="btn btn-primary full-btn" id="save-goal-btn">Add Goal</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Bar Chart Modal -->
+<div class="modal-overlay" id="modal-chart">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Edit Monthly Revenue</div>
+      <button class="modal-close" data-modal="modal-chart">✕</button>
+    </div>
+    <div class="chart-edit-grid" id="chart-edit-grid"></div>
+    <button class="btn btn-primary full-btn" id="save-chart-btn" style="margin-top:1rem;">Save Changes</button>
+  </div>
+</div>
+
+<!-- Edit Donut Modal -->
+<div class="modal-overlay" id="modal-donut">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Edit Traffic Sources</div>
+      <button class="modal-close" data-modal="modal-donut">✕</button>
+    </div>
+    <div id="donut-edit-list"></div>
+    <button class="btn btn-primary full-btn" id="save-donut-btn" style="margin-top:1rem;">Save Changes</button>
+  </div>
+</div>
+
+<!-- Notifications Panel -->
+<div class="notif-panel" id="notif-panel">
+  <div class="notif-header">Notifications <span id="clear-notifs" style="cursor:pointer;font-size:0.75rem;color:var(--accent);margin-left:auto;">Clear all</span></div>
+  <div id="notif-list"></div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Profile Edit (click avatar) -->
+<div class="modal-overlay" id="modal-profile">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Edit Profile</div>
+      <button class="modal-close" data-modal="modal-profile">✕</button>
+    </div>
+    <label>Display Name</label>
+    <input class="input" id="profile-name" type="text" placeholder="Your name"/>
+    <label>Role</label>
+    <input class="input" id="profile-role" type="text" placeholder="e.g. Admin"/>
+    <button class="btn btn-primary full-btn" id="save-profile-btn">Save Profile</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
